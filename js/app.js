@@ -548,9 +548,6 @@ function getPlacesDetails(marker, infowindow) {
   });
 }
 
-function locationClick() {
-    alert("I am an alert box!");
-}
 
 var ViewModel = function() {
   this.locList = ko.observableArray();
@@ -561,10 +558,9 @@ var ViewModel = function() {
 
   this.selectedLocation = ko.observable();
 
-
-  // if this.selectedLocation != null {
-  //   hideMarkers();
-  // }
+  this.locationClick = function () {
+    alert(this.selectedLocation);
+  };
 }
 
 //locations model
