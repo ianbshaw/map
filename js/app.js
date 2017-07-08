@@ -149,12 +149,12 @@ function initMap() {
    showListings();
  }
 
- document.getElementById('show-listings').addEventListener('click', showListings);
- document.getElementById('hide-listings').addEventListener('click', hideListings);
+ //document.getElementById('show-listings').addEventListener('click', showListings);
+ //document.getElementById('hide-listings').addEventListener('click', hideListings);
 
- document.getElementById('toggle-drawing').addEventListener('click', function() {
-      toggleDrawing(drawingManager);
-    });
+ //document.getElementById('toggle-drawing').addEventListener('click', function() {
+ //     toggleDrawing(drawingManager);
+ //   });
 
  drawingManager.addListener('overlaycomplete', function(event) {
   if (polygon) {
@@ -550,16 +550,11 @@ function getPlacesDetails(marker, infowindow) {
 
 var ViewModel = function() {
 
-	this.locList = ko.observableArray(
-		[
-			new Location(locations[0]),
-			new Location(locations[1]),
-			new Location(locations[2]),
-			new Location(locations[3]),
-			new Location(locations[4]),
-			new Location(locations[5])
-		]
-	);
+  this.locList = ko.observableArray();
+  
+  for (var i = 0; i < locations.length; i++) {
+    this.locList.push(locations[i]);
+  }
 }
 
 //locations model
