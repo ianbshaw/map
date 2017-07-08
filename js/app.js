@@ -235,9 +235,11 @@ function showListings() {
 }
 
 // This function will loop through the listings and hide them all.
-function hideMarkers(markers) {
+function hideMarkers(markers, selectedLocation) {
   for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
+  	if (markers[i].title != selectedLocation) {
+    	markers[i].setMap(null);
+	}	
   }
 }
 
@@ -556,11 +558,16 @@ var ViewModel = function() {
     this.locList.push(locations[i]);
   }
 
-  this.selectedLocation = ko.observable();
+  this.currentLocation = ko.observable("");
 
   this.locationClick = function () {
-    alert(this.selectedLocation);
+
   };
+
+  this.filter = function () {
+    var selectedLocation = document.getElementById('filter').value;
+    hideMarkers(markers, selectedLocation);	
+  }
 }
 
 //locations model

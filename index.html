@@ -9,16 +9,13 @@
         <h1>Find Your New NYC Home</h1>
         <hr>
         <div>
-          <select data-bind="options: locList, 
-          					optionsText: 'title',
-          					value: selectedLocation, 
-          					optionsCaption: 'Filter'">
-          </select>
+          <input id="filter" data-bind="value: currentLocation, valueUpdate: 'afterkeydown'" placeholder='Search...'>
+          <input id="filter-btn" type="button" data-bind="click: filter" value="Filter">
         </div>
         <hr>
         <div data-bind="with: locList">
           <ul data-bind="foreach: $data">
-            <li data-bind="click: $root.locationClick"><span data-bind="text: title"></span></li>
+            <li data-bind="visible: $root.currentLocation().length < 1 || $root.currentLocation() == $data.title , click: $root.locationClick"><span data-bind="text: title"></span></li>
           </ul>
           <!--<input id="show-listings" type="button" value="Show Listings">
           <input id="hide-listings" type="button" value="Hide Listings">
