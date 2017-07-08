@@ -550,15 +550,6 @@ function getPlacesDetails(marker, infowindow) {
   });
 }
 
-function getMarker(title) {
-	for (var i = 0; i < markers.length; i++) {
-    	if (markers[i].title === title) {
-    		return markers[i];
-    	}
-  	}
-}
-
-
 var ViewModel = function() {
   this.locList = ko.observableArray();
   
