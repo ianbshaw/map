@@ -8,15 +8,13 @@
       <div class="options-box">
         <h1>Find Your New NYC Home</h1>
         <hr>
-        <div data-bind="with: locations">
-          <span class="text"> Search </span>
-          <select data-bind="foreach: locations">
-            <option data-bind="text: title"><span data-bind="text: title"></span></option>
+        <div>
+          <select data-bind="options: locList, optionsText: 'title', optionsCaption: 'Filter'">
           </select>
         </div>
         <hr>
-        <div data-bind="with: locations">
-          <ul data-bind="foreach: locations">
+        <div data-bind="with: locList">
+          <ul data-bind="foreach: $data">
             <li><span data-bind="text: title"></span></li>
           </ul>
           <!--<input id="show-listings" type="button" value="Show Listings">

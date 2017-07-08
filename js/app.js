@@ -550,12 +550,24 @@ function getPlacesDetails(marker, infowindow) {
 
 var ViewModel = function() {
 
-	this.locations = ko.observable(new Location(locations));
+	this.locList = ko.observableArray(
+		[
+			new Location(locations[0]),
+			new Location(locations[1]),
+			new Location(locations[2]),
+			new Location(locations[3]),
+			new Location(locations[4]),
+			new Location(locations[5])
+		]
+	);
 }
 
 //locations model
 var Location = function(data) {
-	this.locations = ko.observableArray(data);
+	//this.locations = ko.observableArray(data);
+
+	this.location = ko.observable(data.location);
+	this.title = ko.observable(data.title);
 }
 
 ko.applyBindings(new ViewModel());
