@@ -18,7 +18,7 @@
         <hr>
         <div data-bind="with: locList">
           <ul data-bind="foreach: $data">
-            <li><span data-bind="text: title"></span></li>
+            <li data-bind="click: locationClick"><span data-bind="text: title"></span></li>
           </ul>
           <!--<input id="show-listings" type="button" value="Show Listings">
           <input id="hide-listings" type="button" value="Hide Listings">
