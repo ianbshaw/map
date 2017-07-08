@@ -549,18 +549,21 @@ function getPlacesDetails(marker, infowindow) {
 }
 
 var ViewModel = function() {
-
   this.locList = ko.observableArray();
   
   for (var i = 0; i < locations.length; i++) {
     this.locList.push(locations[i]);
   }
+
+  this.selectedLocation = ko.observable();
+
+  // if this.selectedLocation != null {
+  //   hideMarkers();
+  // }
 }
 
 //locations model
 var Location = function(data) {
-	//this.locations = ko.observableArray(data);
-
 	this.location = ko.observable(data.location);
 	this.title = ko.observable(data.title);
 }

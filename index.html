@@ -9,7 +9,10 @@
         <h1>Find Your New NYC Home</h1>
         <hr>
         <div>
-          <select data-bind="options: locList, optionsText: 'title', optionsCaption: 'Filter'">
+          <select data-bind="options: locList, 
+          					optionsText: 'title',
+          					value: selectedLocation, 
+          					optionsCaption: 'Filter'">
           </select>
         </div>
         <hr>
