@@ -550,6 +550,14 @@ function getPlacesDetails(marker, infowindow) {
   });
 }
 
+function getMarker(title) {
+	for (var i = 0; i < markers.length; i++) {
+    	if (markers[i].title === title) {
+    		return markers[i];
+    	}
+  	}
+}
+
 
 var ViewModel = function() {
   this.locList = ko.observableArray();
@@ -560,8 +568,14 @@ var ViewModel = function() {
 
   this.currentLocation = ko.observable("");
 
-  this.locationClick = function () {
-
+  this.locationClick = function (marker) {
+  	var largeInfowindow = new google.maps.InfoWindow();
+  	//alert(markers[0].title);
+  	for (var i = 0; i < markers.length; i++) {
+		if (markers[i].title === marker.title) {
+	    	populateInfoWindow(markers[i], largeInfowindow);
+		}	
+  	}
   };
 
   this.filter = function () {
