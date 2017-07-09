@@ -1,12 +1,12 @@
 // These are the real estate listings that will be shown to the user.
 // Normally we'd have these in a database instead.
 var locations = [
-	{title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-	{title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-	{title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-	{title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-	{title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-	{title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+	{title: 'Stoneface Tavern', location: {lat: 35.176492, lng: -106.578093}},
+	{title: 'Marble Brewery', location: {lat: 35.093066, lng: -106.646719}},
+	{title: 'La Cumbre Brewing Co', location: {lat: 35.117511, lng: -106.614129}},
+	{title: 'Tractor Brewing Co', location: {lat: 35.079849, lng: -106.602506}},
+	{title: 'Fox & Hound', location: {lat: 35.141757, lng: -106.645010}}
+	//{title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
 ];
 
 var map;
@@ -92,7 +92,7 @@ function initMap() {
 
  // Constructor creates a new map - only center and zoom are required.
  map = new google.maps.Map(document.getElementById('map'), {
-   center: {lat: 40.7413549, lng: -73.9980244},
+   center: {lat: 35.118089, lng: -106.598731}, 
    zoom: 13,
    styles: styles,
    mapTypeControl: false
