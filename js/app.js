@@ -127,6 +127,7 @@ function initMap() {
 		// Create an onclick event to open the large infowindow at each marker.
 		marker.addListener('click', function() {
 	  		getVenue(loc, largeInfowindow, this);
+	  		this.setAnimation(google.maps.Animation.BOUNCE);
 		});
 
 		// Two event listeners - one for mouseover, one for mouseout,
@@ -153,6 +154,7 @@ function populateInfoWindow(marker, infowindow, venue) {
     infowindow.marker = marker;
     // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick', function() {
+      marker.setAnimation(null);
       infowindow.marker = null;
     });
 
@@ -265,6 +267,7 @@ var ViewModel = function(locations) {
   		//alert(markers[0].title);
   		for (var i = 0; i < markers.length; i++) {
 			if (markers[i].title === marker.title) {
+				markers[i].setAnimation(google.maps.Animation.BOUNCE);
 				getVenue(marker, largeInfowindow, markers[i]);
 			}	
   		}
