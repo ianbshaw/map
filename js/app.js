@@ -110,6 +110,7 @@ function initMap() {
  	// The following group uses the location array to create an array of markers on initialize.
 	for (var i = 0; i < locations.length; i++) {
 		// Get the position from the location array.
+		var loc = locations[i];
 		var position = locations[i].location;
 		var title = locations[i].title;
 		// Create a marker per location, and put into markers array.
@@ -121,13 +122,18 @@ function initMap() {
      		id: i
    		});
 		// Push the marker to our array of markers.
-		markers.push(marker);
+		markers.push(marker);		
 
-		var loc = locations[i];
+		addListeners(marker, loc);
+		
+	}
+
+	function addListeners(marker, loc) {
 		// Create an onclick event to open the large infowindow at each marker.
 		marker.addListener('click', function() {
 	  		getVenue(loc, largeInfowindow, this);
 		});
+
 		// Two event listeners - one for mouseover, one for mouseout,
 		// to change the colors back and forth.
 		marker.addListener('mouseover', function() {
