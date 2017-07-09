@@ -180,7 +180,7 @@ function initMap() {
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
-function populateInfoWindow(marker, infowindow) {
+function populateInfoWindow(marker, infowindow, venue) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
     // Clear the infowindow content to give the streetview time to load.
@@ -190,34 +190,38 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.addListener('closeclick', function() {
       infowindow.marker = null;
     });
-    var streetViewService = new google.maps.StreetViewService();
-    var radius = 50;
+
+    infowindow.setContent('<div>' + venue.name + '</div>');
+
+
+    //var streetViewService = new google.maps.StreetViewService();
+    //var radius = 50;
     // In case the status is OK, which means the pano was found, compute the
     // position of the streetview image, then calculate the heading, then get a
     // panorama from that and set the options
-    function getStreetView(data, status) {
-      if (status == google.maps.StreetViewStatus.OK) {
-        var nearStreetViewLocation = data.location.latLng;
-        var heading = google.maps.geometry.spherical.computeHeading(
-          nearStreetViewLocation, marker.position);
-          infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
-          var panoramaOptions = {
-            position: nearStreetViewLocation,
-            pov: {
-              heading: heading,
-              pitch: 30
-            }
-          };
-        var panorama = new google.maps.StreetViewPanorama(
-          document.getElementById('pano'), panoramaOptions);
-      } else {
-        infowindow.setContent('<div>' + marker.title + '</div>' +
-          '<div>No Street View Found</div>');
-      }
-    }
+    // function getStreetView(data, status) {
+    //   if (status == google.maps.StreetViewStatus.OK) {
+    //     var nearStreetViewLocation = data.location.latLng;
+    //     var heading = google.maps.geometry.spherical.computeHeading(
+    //       nearStreetViewLocation, marker.position);
+    //       infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
+    //       var panoramaOptions = {
+    //         position: nearStreetViewLocation,
+    //         pov: {
+    //           heading: heading,
+    //           pitch: 30
+    //         }
+    //       };
+    //     var panorama = new google.maps.StreetViewPanorama(
+    //       document.getElementById('pano'), panoramaOptions);
+    //   } else {
+    //     infowindow.setContent('<div>' + marker.title + '</div>' +
+    //       '<div>No Street View Found</div>');
+    //   }
+    // }
     // Use streetview service to get the closest streetview image within
     // 50 meters of the markers position
-    streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+    //streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
     // Open the infowindow on the correct marker.
     infowindow.open(map, marker);
   }
@@ -550,6 +554,23 @@ function getPlacesDetails(marker, infowindow) {
   });
 }
 
+function getVenue(location, largeInfowindow, marker) {
+  var venue;
+  var client_id = 'MLO2SWXCZ4MUZV1LEHPMY5O50HCGQU4IVD34XXLURUXTO5KD';
+  var client_secret = 'ULS1EZ3ZIQKKUBBFXIECLQYKGIMEFM3WN1NXPWZAQUSH3COQ';
+  var coords = location.location.lat + ',' + location.location.lng;
+  var url = 'https://api.foursquare.com/v2/venues/search?ll=' + coords + '&query=' + location.title + '&intent=checkin&client_id=' + client_id + '&client_secret=' + client_secret + '&v=20170701';
+  //alert(coords);
+  $.getJSON(url, function(data){
+
+  	venue = data.response.venues[0];
+  	populateInfoWindow(marker, largeInfowindow, venue);
+  }).error(function(e){
+  	alert('Could not load venue');
+  });
+  return venue;
+}
+
 var ViewModel = function() {
   this.locList = ko.observableArray();
   
@@ -561,10 +582,11 @@ var ViewModel = function() {
 
   this.locationClick = function (marker) {
   	var largeInfowindow = new google.maps.InfoWindow();
+  	var venue = getVenue(marker);
   	//alert(markers[0].title);
   	for (var i = 0; i < markers.length; i++) {
 		if (markers[i].title === marker.title) {
-	    	populateInfoWindow(markers[i], largeInfowindow);
+			getVenue(marker, largeInfowindow, markers[i]);
 		}	
   	}
   };
