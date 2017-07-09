@@ -1,13 +1,22 @@
 // These are the locations that will be shown to the user.
 // Normally we'd have these in a database instead.
 var locations = [
-	{title: 'Stoneface Tavern', location: {lat: 35.176492, lng: -106.578093}, showLocation: true},
-	{title: 'Marble Brewery', location: {lat: 35.093066, lng: -106.646719}, showLocation: true},
-	{title: 'La Cumbre Brewing Co', location: {lat: 35.117511, lng: -106.614129}, showLocation: true},
-	{title: 'Tractor Brewing Co', location: {lat: 35.079849, lng: -106.602506}, showLocation: true},
-	{title: 'Fox & Hound', location: {lat: 35.141757, lng: -106.645010}, showLocation: true}
-	//{title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
-];
+		{title: 'Stoneface Tavern', location: {lat: 35.176492, lng: -106.578093}, showLocation: true},
+		{title: 'Marble Brewery', location: {lat: 35.093066, lng: -106.646719}, showLocation: true},
+		{title: 'La Cumbre Brewing Co', location: {lat: 35.117511, lng: -106.614129}, showLocation: true},
+		{title: 'Tractor Brewing Co', location: {lat: 35.079849, lng: -106.602506}, showLocation: true},
+		{title: 'Fox & Hound', location: {lat: 35.141757, lng: -106.645010}, showLocation: true}
+	];
+
+// var locations = [];
+
+// $.ajax({
+//     url: "js/locations.json",
+//     data : "array",
+//     success: function(response) {
+//     	locations = response[1];
+//     }//.success
+// }); //.ajax
 
 //map variable
 var map;
@@ -139,7 +148,6 @@ function initMap() {
   			this.setIcon(defaultIcon);
 		});
 	}
-	
 	showMarkers();
 }       
 
@@ -215,8 +223,8 @@ function getVenue(location, largeInfowindow, marker) {
   		populateInfoWindow(marker, largeInfowindow, venue);
   	}).error(function(e){
   		alert('Could not load venue');
-  	});
-}
+  	}); //.error
+} //.getVenue
 
 var ENTER_KEY = 13;
 
@@ -249,6 +257,10 @@ function keyhandlerBindingFactory(keyCode) {
 
 // a custom binding to handle the enter key
 ko.bindingHandlers.enterKey = keyhandlerBindingFactory(ENTER_KEY);
+
+function googleError() {
+	alert("Google Maps could not be loaded");
+}
 
 //main viewmodel
 var ViewModel = function(locations) {

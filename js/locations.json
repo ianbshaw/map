@@ -1,0 +1,46 @@
+
+[{
+		"title": "Stoneface Tavern",
+		"location": {
+			"lat": "35.176492",
+			"lng": "-106.578093"
+		},
+		"showLocation": "true"
+	},
+	{
+		"title": "Marble Brewery",
+		"location": {
+			"lat": "35.093066",
+			"lng": "-106.646719"
+		},
+		"showLocation": "true"
+	}, {
+		"title": "Stoneface Tavern",
+		"location": {
+			"lat": "35.176492",
+			"lng": "-106.578093"
+		},
+		"showLocation": "true"
+	}, {
+		"title": "La Cumbre Brewing Co",
+		"location": {
+			"lat": "35.117511",
+			"lng": "-106.614129"
+		},
+		"showLocation": "true"
+	}, {
+		"title": "Tractor Brewing Co",
+		"location": {
+			"lat": "35.079849",
+			"lng": "-106.602506"
+		},
+		"showLocation": "true"
+	}, {
+		"title": "Fox & Hound",
+		"location": {
+			"lat": "35.141757",
+			"lng": "-106.645010"
+		},
+		"showLocation": "true"
+	}
+]
