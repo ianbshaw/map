@@ -156,9 +156,10 @@ function populateInfoWindow(marker, infowindow, venue) {
       infowindow.marker = null;
     });
 
-    infowindow.setContent('<div>' + venue.name + '</div>' +
+    infowindow.setContent('<div><a href="' + venue.url + '">'+ venue.name +'</a></div>' +
     					  '<div> Phone:' + venue.contact.phone + '</div>' +
-    					  '<div> Address:' + venue.location.address + '</div>');
+    					  '<div> Address:' + venue.location.address + '</div>' +
+    					  '<div>' + venue.hereNow.summary + '</div>');
 
     // Open the infowindow on the correct marker.
     infowindow.open(map, marker);
