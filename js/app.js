@@ -235,13 +235,13 @@ var ViewModel = function() {
   	this.filter = function () {
     	var selectedLocation = document.getElementById('filter').value;
     	hideMarkers(markers, selectedLocation);	
-  	}
-}
+  	};
+};
 
 //locations model
 var Location = function(data) {
 	this.location = ko.observable(data.location);
 	this.title = ko.observable(data.title);
-}
+};
 
 ko.applyBindings(new ViewModel());
