@@ -1,11 +1,11 @@
 // These are the locations that will be shown to the user.
 // Normally we'd have these in a database instead.
 var locations = [
-	{title: 'Stoneface Tavern', location: {lat: 35.176492, lng: -106.578093}},
-	{title: 'Marble Brewery', location: {lat: 35.093066, lng: -106.646719}},
-	{title: 'La Cumbre Brewing Co', location: {lat: 35.117511, lng: -106.614129}},
-	{title: 'Tractor Brewing Co', location: {lat: 35.079849, lng: -106.602506}},
-	{title: 'Fox & Hound', location: {lat: 35.141757, lng: -106.645010}}
+	{title: 'Stoneface Tavern', location: {lat: 35.176492, lng: -106.578093}, showLocation: true},
+	{title: 'Marble Brewery', location: {lat: 35.093066, lng: -106.646719}, showLocation: true},
+	{title: 'La Cumbre Brewing Co', location: {lat: 35.117511, lng: -106.614129}, showLocation: true},
+	{title: 'Tractor Brewing Co', location: {lat: 35.079849, lng: -106.602506}, showLocation: true},
+	{title: 'Fox & Hound', location: {lat: 35.141757, lng: -106.645010}, showLocation: true}
 	//{title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
 ];
 
@@ -139,7 +139,7 @@ function initMap() {
 		});
 	}
 	
-	showListings();
+	showMarkers();
 }       
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -164,7 +164,7 @@ function populateInfoWindow(marker, infowindow, venue) {
 }
 
 // This function will loop through the markers array and display them all.
-function showListings() {
+function showMarkers() {
   var bounds = new google.maps.LatLngBounds();
   // Extend the boundaries of the map for each marker and display the marker
   for (var i = 0; i < markers.length; i++) {
@@ -213,6 +213,38 @@ function getVenue(location, largeInfowindow, marker) {
   	});
 }
 
+var ENTER_KEY = 13;
+
+// A factory function we can use to create binding handlers for specific
+// keycodes.
+function keyhandlerBindingFactory(keyCode) {
+	return {
+		init: function (element, valueAccessor, allBindingsAccessor, data, bindingContext) {
+			var wrappedHandler, newValueAccessor;
+
+			// wrap the handler with a check for the enter key
+			wrappedHandler = function (data, event) {
+				if (event.keyCode === keyCode) {
+					valueAccessor().call(this, data, event);
+				}
+			};
+
+			// create a valueAccessor with the options that we would want to pass to the event binding
+			newValueAccessor = function () {
+				return {
+					keyup: wrappedHandler
+				};
+			};
+
+			// call the real event binding's init function
+			ko.bindingHandlers.event.init(element, newValueAccessor, allBindingsAccessor, data, bindingContext);
+		}
+	};
+}
+
+// a custom binding to handle the enter key
+ko.bindingHandlers.enterKey = keyhandlerBindingFactory(ENTER_KEY);
+
 //main viewmodel
 var ViewModel = function(locations) {
 	//list of locations
@@ -237,8 +269,17 @@ var ViewModel = function(locations) {
 
   	//filter markers based on input text on button click
   	this.filter = function () {
-    	var selectedLocation = document.getElementById('filter').value;
-    	hideMarkers(markers, selectedLocation);	
+  		if (this.currentLocation() === '') {
+  			showMarkers();
+  		}
+  		alert(this.locList()[0].showLocation);
+  		for (var i = 0; i < locations.length; i++) {
+  			var match =  locations[i].title.toLowerCase().indexOf(this.currentLocation().toLowerCase()) > -1;
+  			this.locList()[i].showLocation = match;
+  			markers[i].setVisible(match);
+  		}
+    	//var match = this.currentLocation();
+    	//hideMarkers(markers, match);	
   	};
 };
 
@@ -246,6 +287,7 @@ var ViewModel = function(locations) {
 var Location = function(data) {
 	this.location = ko.observable(data.location);
 	this.title = ko.observable(data.title);
+	this.showLocation = ko.observable(data.showLocation);
 };
 
 ko.applyBindings(new ViewModel(locations));

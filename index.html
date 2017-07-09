@@ -9,13 +9,13 @@
         <h1>Albuquerque Bars</h1>
         <hr>
         <div>
-          <input id="filter" data-bind="value: currentLocation, valueUpdate: 'afterkeydown'" placeholder='Search...'>
+          <input data-bind="value: currentLocation, valueUpdate: 'afterkeydown', enterKey: filter" placeholder='Search...'>
           <input id="filter-btn" type="button" data-bind="click: filter" value="Filter">
         </div>
         <hr>
         <div data-bind="with: locList">
           <ul data-bind="foreach: $data">
-            <li id="item" data-bind="visible: $root.currentLocation().length < 1 || $root.currentLocation() == $data.title , click: $root.locationClick"><span data-bind="text: title"></span></li>
+            <li id="item" data-bind="visible: showLocation, click: $root.locationClick"><span data-bind="text: title"></span></li>
           </ul>
       </div>
       <div id="map"></div>
