@@ -193,14 +193,14 @@ function hideMarkers(markers, selectedLocation) {
 // icon of that color. The icon will be 21 px wide by 34 high, have an origin
 // of 0, 0 and be anchored at 10, 34).
 function makeMarkerIcon(markerColor) {
-  var markerImage = new google.maps.MarkerImage(
-    'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
-    '|40|_|%E2%80%A2',
-    new google.maps.Size(21, 34),
-    new google.maps.Point(0, 0),
-    new google.maps.Point(10, 34),
-    new google.maps.Size(21,34));
-  return markerImage;
+	var markerImage = new google.maps.MarkerImage(
+    	'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+    	'|40|_|%E2%80%A2',
+    	new google.maps.Size(21, 34),
+    	new google.maps.Point(0, 0),
+    	new google.maps.Point(10, 34),
+    	new google.maps.Size(21,34));
+  	return markerImage;
 }
 
 function getVenue(location, largeInfowindow, marker) {
@@ -219,7 +219,7 @@ function getVenue(location, largeInfowindow, marker) {
   	});
 }
 
-var ViewModel = function() {
+var ViewModel = function(locations) {
 	this.locList = ko.observableArray();
   	for (var i = 0; i < locations.length; i++) {
     	this.locList.push(locations[i]);
@@ -229,7 +229,6 @@ var ViewModel = function() {
 
   	this.locationClick = function (marker) {
   		var largeInfowindow = new google.maps.InfoWindow();
-  		var venue = getVenue(marker);
   		//alert(markers[0].title);
   		for (var i = 0; i < markers.length; i++) {
 			if (markers[i].title === marker.title) {
@@ -250,4 +249,4 @@ var Location = function(data) {
 	this.title = ko.observable(data.title);
 };
 
-ko.applyBindings(new ViewModel());
+ko.applyBindings(new ViewModel(locations));

@@ -48,32 +48,9 @@ hr {
   width: 340px;
 }
 
-#pano {
-  width: 200px;
-  height: 200px;
-}
-
-#places-search,
-#search-within-time-text {
-  width: 84%;
-}
 
 .text {
   font-size: 12px;
-}
-
-#toggle-drawing {
-  width: 27%;
-  position: relative;
-  margin-left: 10px;
-}
-
-#zoom-to-area-text {
-  width: 70%;
-}
-
-#zoom-to-area {
-  width: 24%;
 }
 
 ul {
