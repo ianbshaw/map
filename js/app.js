@@ -268,20 +268,38 @@ var ViewModel = function(locations) {
   	};
 
   	//filter markers based on input text on button click
-  	this.filter = function () {
+  	this.filterMarker = function () {
   		if (this.currentLocation() === '') {
   			showMarkers();
+  		}else{
+  			for (var i = 0; i < locations.length; i++) {
+  				var match =  locations[i].title.toLowerCase().indexOf(this.currentLocation().toLowerCase()) > -1;
+  				this.locList()[i].showLocation = match;
+  				markers[i].setVisible(match);
+  			}
   		}
-  		//alert(this.locList()[0].showLocation);
-  		for (var i = 0; i < locations.length; i++) {
-  			var match =  locations[i].title.toLowerCase().indexOf(this.currentLocation().toLowerCase()) > -1;
-  			this.locList()[i].showLocation = match;
-  			markers[i].setVisible(match);
-  		}
+
+  		
     	//var match = this.currentLocation();
     	//hideMarkers(markers, match);	
-  	};
-};
+  	}; // .filter
+
+  	      /**
+       * Filter function, return filtered food by
+       * matching with user's keyword
+       */
+  	this.filter = ko.computed(() => {
+        if (!this.currentLocation()) {
+          // No input found, return all food
+          return this.locList();
+        } else {
+          // input found, match keyword to filter
+          return ko.utils.arrayFilter(this.locList(), (location) => {
+            return location.title.toLowerCase().indexOf(this.currentLocation().toLowerCase()) !== -1;
+          });
+        } //.conditional
+  	}); // .filter 
+}; //.viewmodel
 
 //locations model
 var Location = function(data) {
