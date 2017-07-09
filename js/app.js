@@ -9,18 +9,13 @@ var locations = [
 	//{title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
 ];
 
+//map variable
 var map;
 
 // Create a new blank array for all the listing markers.
 var markers = [];
 
-// This global polygon variable is to ensure only ONE polygon is rendered.
-//var polygon = null;
-
-// Create placemarkers array to use in multiple functions to have control
-// over the number of places that show.
-//var placeMarkers = [];
-
+//initialize google map objects, callback function for googleapi
 function initMap() {
 	// Create a styles array to use with the map.
  	var styles = [
@@ -145,12 +140,11 @@ function initMap() {
 	}
 	
 	showListings();
-
 }       
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
-// on that markers position.
+// on that markers position also passing foursquare venue.
 function populateInfoWindow(marker, infowindow, venue) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
@@ -180,7 +174,7 @@ function showListings() {
   map.fitBounds(bounds);
 }
 
-// This function will loop through the listings and hide them all.
+// This function will loop through the listings and hide all but the selected list item.
 function hideMarkers(markers, selectedLocation) {
   for (var i = 0; i < markers.length; i++) {
   	if (markers[i].title != selectedLocation) {
@@ -203,6 +197,7 @@ function makeMarkerIcon(markerColor) {
   	return markerImage;
 }
 
+// Take location data from foursquare and pass into infowindow
 function getVenue(location, largeInfowindow, marker) {
 	var venue;
   	var client_id = 'MLO2SWXCZ4MUZV1LEHPMY5O50HCGQU4IVD34XXLURUXTO5KD';
@@ -211,7 +206,6 @@ function getVenue(location, largeInfowindow, marker) {
   	var url = 'https://api.foursquare.com/v2/venues/search?ll=' + coords + '&query=' + location.title + '&intent=checkin&client_id=' + client_id + '&client_secret=' + client_secret + '&v=20170701';
   	//alert(coords);
   	$.getJSON(url, function(data){
-
   		venue = data.response.venues[0];
   		populateInfoWindow(marker, largeInfowindow, venue);
   	}).error(function(e){
@@ -219,14 +213,18 @@ function getVenue(location, largeInfowindow, marker) {
   	});
 }
 
+//main viewmodel
 var ViewModel = function(locations) {
+	//list of locations
 	this.locList = ko.observableArray();
   	for (var i = 0; i < locations.length; i++) {
     	this.locList.push(locations[i]);
   	}
 
+  	//current filter text
   	this.currentLocation = ko.observable("");
 
+  	//list item click function
   	this.locationClick = function (marker) {
   		var largeInfowindow = new google.maps.InfoWindow();
   		//alert(markers[0].title);
@@ -237,6 +235,7 @@ var ViewModel = function(locations) {
   		}
   	};
 
+  	//filter markers based on input text on button click
   	this.filter = function () {
     	var selectedLocation = document.getElementById('filter').value;
     	hideMarkers(markers, selectedLocation);	
