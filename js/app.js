@@ -296,19 +296,15 @@ var ViewModel = function(locations) {
   				markers[i].setVisible(match);
   			}
   		}
-
-  		
-    	//var match = this.currentLocation();
-    	//hideMarkers(markers, match);	
   	}; // .filter
 
   	      /**
-       * Filter function, return filtered food by
+       * Filter function, return filtered location by
        * matching with user's keyword
        */
   	this.filter = ko.computed(() => {
         if (!this.currentLocation()) {
-          // No input found, return all food
+          // No input found, return all location
           return this.locList();
         } else {
           // input found, match keyword to filter
