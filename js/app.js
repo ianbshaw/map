@@ -272,7 +272,7 @@ var ViewModel = function(locations) {
   		if (this.currentLocation() === '') {
   			showMarkers();
   		}
-  		alert(this.locList()[0].showLocation);
+  		//alert(this.locList()[0].showLocation);
   		for (var i = 0; i < locations.length; i++) {
   			var match =  locations[i].title.toLowerCase().indexOf(this.currentLocation().toLowerCase()) > -1;
   			this.locList()[i].showLocation = match;
@@ -285,8 +285,8 @@ var ViewModel = function(locations) {
 
 //locations model
 var Location = function(data) {
-	this.location = ko.observable(data.location);
-	this.title = ko.observable(data.title);
+	this.location = data.location;
+	this.title = data.title;
 	this.showLocation = ko.observable(data.showLocation);
 };
 
