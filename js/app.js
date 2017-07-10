@@ -8,16 +8,6 @@ var locations = [
     { title: 'Fox & Hound', location: { lat: 35.141757, lng: -106.645010 }, showLocation: true }
 ];
 
-// var locations = [];
-
-// $.ajax({
-//     url: "js/locations.json",
-//     data : "array",
-//     success: function(response) {
-//         locations = response[1];
-//     }//.success
-// }); //.ajax
-
 //map variable
 var map;
 
@@ -102,7 +92,7 @@ function initMap() {
         mapTypeControl: false
     });
 
-    var largeInfowindow = new google.maps.InfoWindow();
+    var largeInfowindow = new google.maps.InfoWindow({});
 
     // Style the markers a bit. This will be our listing marker icon.
     var defaultIcon = makeMarkerIcon('0091ff');
@@ -175,10 +165,10 @@ function populateInfoWindow(marker, infowindow, venue) {
         address = venue.location.address || 'No address provided';
         url = venue.url || '#';
 
-        infowindow.setContent('<div><a href="' + url + '">' + venue.name + '</a></div>' +
+        infowindow.setContent('<div class="smallText data-bind="css: { smallText : !menu}"><div><a href="' + url + '">' + venue.name + '</a></div>' +
             '<div> Phone:' + phone + '</div>' +
             '<div> Address:' + address + '</div>' +
-            '<div>' + venue.hereNow.summary + '</div>');
+            '<div>' + venue.hereNow.summary + '</div></div>');
 
         // Open the infowindow on the correct marker.
         infowindow.open(map, marker);
@@ -187,6 +177,8 @@ function populateInfoWindow(marker, infowindow, venue) {
 
 // This function will loop through the markers array and display them all.
 function showMarkers() {
+    if (!map) return;
+  
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
     for (var i = 0; i < markers.length; i++) {
@@ -295,6 +287,9 @@ var ViewModel = function (locations) {
         for (var i = 0; i < markers.length; i++) {
             if (markers[i].title === marker.title) {
                 markers[i].setAnimation(google.maps.Animation.BOUNCE);
+                setTimeout(markers[i], function() {
+                  markers[i].setAnimation(null);
+                }, 700);
                 getVenue(marker, largeInfowindow, markers[i]);
             }
         }
@@ -303,7 +298,6 @@ var ViewModel = function (locations) {
     //filter markers based on input text on button click
     this.filterMarker = function () {
         if (this.currentLocation() === '') {
-            showMarkers();
         } else {
             for (var i = 0; i < locations.length; i++) {
                 var match = locations[i].title.toLowerCase().indexOf(this.currentLocation().toLowerCase()) > -1;
@@ -312,15 +306,12 @@ var ViewModel = function (locations) {
             }
         }
     }; // .filter
-
-    /**
-* Filter function, return filtered location by
-* matching with user's keyword
-*/
+    
+    //filter by text input 
     this.filter = ko.computed(() => {
         if (!this.currentLocation()) {
             // No input found, return all location
-            //showMarkers();
+            showMarkers();
             return this.locList();
         } else {
             // input found, match keyword to filter

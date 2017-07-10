@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Albuquerque Bar Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
-    <title>Albuquerque Bar Map</title>
   </head>
   <body>
     <div class="container">
-      <div class="options-box" data-bind="visible: menu">
+      <aside class="options-box" data-bind="visible: menu">
         <meta charset="utf-8">
         <h1>Albuquerque Bars</h1>
         <hr>
@@ -20,10 +20,10 @@
         <ul data-bind="foreach: filter">
           <li id="item" data-bind="click: $root.locationClick"><span data-bind="text: $data.title"></span></li>
         </ul>
-        </div>
+        </aside>
       </div>
       <div id="toggle"><input type="button" data-bind="click: toggleMenu" value="Show/Hide"></div>
-      <div id="map" data-bind="css: { hide: !menu() }"></div>
+      <main id="map" data-bind="css: { hide: !menu() }"></main>
     </div>
     <script src="js/libs/knockout-3.4.2.js"></script>
     <script src="js/libs/jquery.min.js"></script>
