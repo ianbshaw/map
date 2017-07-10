@@ -286,7 +286,7 @@ var ViewModel = function (locations) {
 
     this.toggleMenu = function() {      
         this.menu(!this.menu());
-    } 
+    };
 
     //list item click function
     this.locationClick = function (marker) {
