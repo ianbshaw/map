@@ -314,10 +314,12 @@ var ViewModel = function (locations) {
     this.filter = ko.computed(() => {
         if (!this.currentLocation()) {
             // No input found, return all location
+            //showMarkers();
             return this.locList();
         } else {
             // input found, match keyword to filter
             return ko.utils.arrayFilter(this.locList(), (location) => {
+                this.filterMarker();
                 return location.title.toLowerCase().indexOf(this.currentLocation().toLowerCase()) !== -1;
             });
         } //.conditional
