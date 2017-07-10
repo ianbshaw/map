@@ -287,9 +287,6 @@ var ViewModel = function (locations) {
         for (var i = 0; i < markers.length; i++) {
             if (markers[i].title === marker.title) {
                 markers[i].setAnimation(google.maps.Animation.BOUNCE);
-                setTimeout(markers[i], function() {
-                  markers[i].setAnimation(null);
-                }, 700);
                 getVenue(marker, largeInfowindow, markers[i]);
             }
         }
