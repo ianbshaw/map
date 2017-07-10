@@ -7,7 +7,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="options-box">
+      <div class="options-box" data-bind="visible: menu">
         <meta charset="utf-8">
         <h1>Albuquerque Bars</h1>
         <hr>
@@ -22,6 +22,7 @@
         </ul>
         </div>
       </div>
+      <div><input type="button" data-bind="click: toggleMenu" value="Show/Hide"></div>
       <div id="map"></div>
     </div>
     <script src="js/libs/knockout-3.4.2.js"></script>

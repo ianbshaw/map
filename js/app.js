@@ -279,8 +279,14 @@ var ViewModel = function (locations) {
         this.locList.push(locations[i]);
     }
 
+    this.menu = ko.observable(true);
+
     //current filter text
     this.currentLocation = ko.observable("");
+
+    this.toggleMenu = function() {      
+        this.menu(!this.menu());
+    } 
 
     //list item click function
     this.locationClick = function (marker) {
