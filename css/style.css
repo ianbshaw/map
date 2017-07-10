@@ -37,6 +37,10 @@ hr {
   right: 0px;
 }
 
+#toggle {
+  position: relative;
+}
+
 .options-box {
   background: #fff;
   border: 1px solid #999;
