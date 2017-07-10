@@ -169,9 +169,15 @@ function populateInfoWindow(marker, infowindow, venue) {
             infowindow.marker = null;
         });
 
-        infowindow.setContent('<div><a href="' + venue.url + '">' + venue.name + '</a></div>' +
-            '<div> Phone:' + venue.contact.phone + '</div>' +
-            '<div> Address:' + venue.location.address + '</div>' +
+        var url, address, phone;
+
+        phone = venue.contact.phone || 'No phone provided';
+        address = venue.location.address || 'No address provided';
+        url = venue.url || '#';
+
+        infowindow.setContent('<div><a href="' + url + '">' + venue.name + '</a></div>' +
+            '<div> Phone:' + phone + '</div>' +
+            '<div> Address:' + address + '</div>' +
             '<div>' + venue.hereNow.summary + '</div>');
 
         // Open the infowindow on the correct marker.
