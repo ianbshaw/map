@@ -309,15 +309,17 @@ var ViewModel = function (locations) {
                 var match = locations[i].title.toLowerCase().indexOf(this.currentLocation().toLowerCase()) > -1;
                 this.locList()[i].showLocation = match;
                 markers[i].setVisible(match);
-            }
-        }
+            } //.for
+        } //.else
     }; // .filter
     
     //filter by text input 
     this.filter = ko.computed(() => {
         if (!this.currentLocation()) {
-            // No input found, return all location
-            showMarkers();
+            // No input found, loop through markers setting them visible, return all location
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setVisible(true);
+            } //.for
             return this.locList();
         } else {
             // input found, match keyword to filter
