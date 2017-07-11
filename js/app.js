@@ -168,8 +168,12 @@ function populateInfoWindow(marker, infowindow, venue) {
             '<div> Address:' + address + '</div>' +
             '<div>' + venue.hereNow.summary + '</div></div>');
 
-        // Open the infowindow on the correct marker.
         infowindow.open(map, marker);
+
+        // Open the infowindow on the correct marker.
+        google.maps.event.addDomListener(window, 'resize', function() {
+          infowindow.open(map, marker);
+        });
     }
 }
 
@@ -282,7 +286,7 @@ var ViewModel = function (locations) {
 
     this.toggleMenu = function() {      
         this.menu(!this.menu());
-    };
+    }; //toggleMenu
 
     //list item click function
     this.locationClick = function (marker) {
@@ -295,7 +299,7 @@ var ViewModel = function (locations) {
                 getVenue(marker, largeInfowindow, markers[i]);
             }
         }
-    };
+    }; //.locationClick
 
     //filter markers based on input text on button click
     this.filterMarker = function () {
