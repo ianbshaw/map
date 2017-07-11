@@ -127,9 +127,7 @@ function initMap() {
         marker.addListener('click', function () {
             getVenue(loc, largeInfowindow, this);
             this.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function() {
-              marker.setAnimation(null);
-            }, 700);
+            markerAnimateTimeout(this);
         });
 
         // Two event listeners - one for mouseover, one for mouseout,
@@ -211,6 +209,12 @@ function makeMarkerIcon(markerColor) {
     return markerImage;
 }
 
+function markerAnimateTimeout(marker) {
+    setTimeout(function() {
+                marker.setAnimation(null);
+              }, 700);
+}
+
 // Take location data from foursquare and pass into infowindow
 function getVenue(location, largeInfowindow, marker) {
     var venue;
@@ -287,6 +291,7 @@ var ViewModel = function (locations) {
         for (var i = 0; i < markers.length; i++) {
             if (markers[i].title === marker.title) {
                 markers[i].setAnimation(google.maps.Animation.BOUNCE);
+                markerAnimateTimeout(markers[i]);
                 getVenue(marker, largeInfowindow, markers[i]);
             }
         }
