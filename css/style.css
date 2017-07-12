@@ -69,16 +69,16 @@ li {
 }
 
 .hide {
-  left: 0px !important;
+  left: 1px !important;
   width: 100%;
 }
 
 .smallText {
-  width: 150px;
+  min-width: 250px;
+  width: 100%;
 }
 
 .gm-style-iw {
-width: 300px; 
-min-height: 50px;
+width: 200px; 
 min-width: 10%;
 }

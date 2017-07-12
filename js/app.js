@@ -139,6 +139,11 @@ function initMap() {
             this.setIcon(defaultIcon);
         });
     }
+
+    google.maps.event.addDomListener(window, 'resize', function() {
+      largeInfowindow.open(map);
+    });
+
     showMarkers();
 }
 
@@ -163,7 +168,7 @@ function populateInfoWindow(marker, infowindow, venue) {
         address = venue.location.address || 'No address provided';
         url = venue.url || '#';
 
-        infowindow.setContent('<div class="smallText data-bind="css: { smallText : !menu}"><div><a href="' + url + '">' + venue.name + '</a></div>' +
+        infowindow.setContent('<div class="smallText"><div><a href="' + url + '">' + venue.name + '</a></div>' +
             '<div> Phone:' + phone + '</div>' +
             '<div> Address:' + address + '</div>' +
             '<div>' + venue.hereNow.summary + '</div></div>');
@@ -171,9 +176,6 @@ function populateInfoWindow(marker, infowindow, venue) {
         infowindow.open(map, marker);
 
         // Open the infowindow on the correct marker.
-        google.maps.event.addDomListener(window, 'resize', function() {
-          infowindow.open(map, marker);
-        });
     }
 }
 
@@ -279,7 +281,7 @@ var ViewModel = function (locations) {
         this.locList.push(locations[i]);
     }
 
-    this.menu = ko.observable(true);
+    this.menu = ko.observable(false);
 
     //current filter text
     this.currentLocation = ko.observable("");
